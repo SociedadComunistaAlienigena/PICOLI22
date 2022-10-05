@@ -2,7 +2,7 @@ package model;
 
 public class Adulto extends Ser {
 	// especifico de adulto
-	private long ahorros = 0;
+	protected long ahorros = 0;
 	
 	public Adulto(Ser ser) {
 		super(ser);

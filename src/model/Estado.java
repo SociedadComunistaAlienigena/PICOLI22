@@ -59,32 +59,70 @@ public class Estado {
 		capital+=calcularProduccionTotal();
 		long pagoParados=pagarAParados();
 		capital-=pagoParados;
-		pagarATrabajadores();
-		pagoAMenores();
-		pagoAAncianos();
+		long pagoTrabajadores=pagarATrabajadores();
+		capital-=pagoTrabajadores;
+		long pagoMenores=pagoAMenores();
+		capital-=pagoMenores;
+		long pagoAncianos=pagoAAncianos();
+		capital-=pagoAncianos;
 	}
 
 	private int calcularProduccionTotal() {
 		return trabajadores.size()*produccionPorTrabajador;
 	}
-
-	private void pagarATrabajadores() {
-		// TODO Auto-generated method stub
+	
+	private long calcularPresupuestado() {
+		long presupuesto=pagarAParados()+pagarATrabajadores()+pagoAAncianos()+pagoAMenores();
+		
+		return 0;
 		
 	}
 
-	private void pagoAAncianos() {
-		// TODO Auto-generated method stub
+	private long pagarATrabajadores() {
+		int cantidad=0;
+		for (Ser ser : trabajadores) {
+			cantidad = ser.necesidadVital*2;
+			ser.cobrar(cantidad);
+		}
+		return cantidad;
 		
 	}
 
-	private void pagoAMenores() {
-		// TODO Auto-generated method stub
+	private long pagoAAncianos() {
+		int cantidad=0;
+		for (Ser ser : ancianos) {
+			cantidad = ser.necesidadVital/2;
+			ser.cobrar(cantidad);
+		}
+		
+		return cantidad;
+		
+	}
+
+	private long pagoAMenores() {
+		int cantidad=0;
+		for (Ser ser : menores) {
+			cantidad = ser.necesidadVital;
+			ser.cobrar(cantidad);
+		}
+		return cantidad;
 		
 	}
 
 	private long pagarAParados() {
-		// TODO Auto-generated method stub
-		return 0;
+		int cantidad=0;
+		for (Ser ser : parados) {
+			Adulto adulto=new Adulto(ser);
+			cantidad = ser.necesidadVital;
+			if(adulto.ahorros>=ser.necesidadVital) {
+				ser.cobrar(cantidad);
+				cantidad=0;
+			}else {
+				ser.cobrar(cantidad);
+				cantidad = ser.necesidadVital;
+			}
+			
+		}
+		return cantidad;
 	}
 }
