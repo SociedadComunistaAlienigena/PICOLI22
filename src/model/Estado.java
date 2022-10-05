@@ -11,6 +11,11 @@ public class Estado {
 	private LinkedList<Ser> ancianos;
 	private final int produccionPorTrabajador=400;
 	private long capital=0;
+	private float demandaInicial;
+	
+	public Estado () {
+		this.demandaInicial = -1;
+	}
 
 	// funciones a realizar
 	public void gestionarPeriodo(float incremento) {
@@ -28,6 +33,9 @@ public class Estado {
 	private void gestionNacimientos() {
 		// TODO Auto-generated method stub
 		
+		// SEGUN LA DEMANDA QUE TENGA EL ESTADO, TENDRÁ QUE GENERAR NUEVOS MENORES
+		poblacion.offer(MenorOM.getMenores());
+		
 	}
 
 	private void gestionEmpleados(long diferencia) {
@@ -35,9 +43,10 @@ public class Estado {
 		
 	}
 
-	private long calculaDemanda(float incremento) {
+	private float calculaDemanda(float incremento) {
 		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.demandaInicial+=this.demandaInicial*incremento/100;
 	}
 
 	private void cerrarPeriodoAnterior() {
