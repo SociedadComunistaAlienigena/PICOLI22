@@ -4,12 +4,12 @@ public class Menor extends Ser {
 	//especifico de menor
 	private float factorDeDesarrollo = 0;
 	
-	public Menor() {
-		super();
+	public Menor(int necesidadVital) {
+		super(necesidadVital);
 	}
 
-	public Menor(int vida) {
-		super(vida);
+	public Menor(int vida,int necesidadVital) {
+		super(vida,necesidadVital);
 	}
 
 	@Override

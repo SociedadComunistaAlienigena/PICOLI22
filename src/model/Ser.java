@@ -23,9 +23,10 @@ public class Ser {
 	}
 	
 
-	public Ser(float esperanzaVida) {
+	public Ser(float esperanzaVida,int necesitadVital) {
 		super();
 		this.esperanzaVida = esperanzaVida;
+		this.necesidadVital=necesitadVital;
 	}
 
 	// comportamiento igual para todos
