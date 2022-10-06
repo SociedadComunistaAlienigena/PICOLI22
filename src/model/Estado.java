@@ -10,7 +10,9 @@ public class Estado {
 	private LinkedList<Ser> menores;
 	private LinkedList<Ser> ancianos;
 	private final int produccionPorTrabajador=400;
+	private final int necesidadVitalBase=100;
 	private long capital=0;
+	long presupuestoParados;
 
 	// funciones a realizar
 	public void gestionarPeriodo(float incremento) {
@@ -18,6 +20,33 @@ public class Estado {
 		abrirPeriodoActual(incremento);
 	}
 
+	private long calcularPresupuesto() {
+		long presupuesto=calcularPresupuestoMenores();
+		presupuesto+= calcularPresupuestoParados();
+		presupuesto+=calcularPresupuestoAncianos();
+		presupuesto+=calcularPresupuestoTrabajadores();
+		return presupuesto;
+	}
+	
+	private long calcularPresupuestoMenores() {
+		return menores.size()*necesidadVitalBase;
+	}
+	private long calcularPresupuestoAncianos() {
+		return ancianos.size()*necesidadVitalBase/2;
+	}
+	private long calcularPresupuestoTrabajadores() {
+		return trabajadores.size()*necesidadVitalBase*2;		
+	}
+	private long calcularPresupuestoParados() {
+		parados.forEach((parado)->{
+			long saldo=((Adulto)parado).getAhorros()-necesidadVitalBase;
+			if(saldo<0) {
+				presupuestoParados+=Math.abs(saldo);
+			}
+		});
+		return presupuestoParados;
+	}
+	
 	private void abrirPeriodoActual(float incremento) {
 		long demandaProxima=calculaDemanda(incremento);
 		long diferencia=demandaProxima-calcularProduccionTotal();

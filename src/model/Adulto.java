@@ -19,7 +19,8 @@ public class Adulto extends Ser {
 		alimentarAdultos(cantidad);
 	}
 	private void alimentarAdultos(int cantidad) {
-		alimentarPersona(cantidad, 99, 50, 0.5f, 1f);
+		alimentarPersona(new CondicionesAlimentacion(
+				cantidad,99, 50, 0.5f, 1f));
 	}
 
 	private void calcularCobroAdulto(int cantidad) {
@@ -40,5 +41,9 @@ public class Adulto extends Ser {
 			this.alimentar(cantidad - (int) ahorros);
 			this.ahorros = 0;
 		}
+	}
+
+	public long getAhorros() {
+		return ahorros;
 	}
 }
